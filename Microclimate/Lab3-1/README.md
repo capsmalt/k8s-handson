@@ -1,7 +1,8 @@
 # Lab 3-1. Microclimateのセットアップ
 Lab3-1ではIBM Microclimateのセットアップを行います。Microclimateは，マイクロサービスの高速開発を支援し，Kubernetesクラスターへのデプロイを支援するツールです。Microclimate自体がコンテナ(K8s)上で動作するコンポーネントであり，IBM Cloud Private (Private Kubernetes ソフトウェア。以降，ICP)上で動作させることが可能です。 
  
- 
+ ![mc_overview](images/01_microclimate_overview.png)
+
 ## 1.	IBM Cloud Virtual Machine (Ubuntu) に接続
 以下の手順でサーバー(リモート環境のUbuntu) にログインします。
 ### 1-1. 	ターミナルを開きます (TeraTermなどの場合はUI上からログインできます)
@@ -161,6 +162,7 @@ ICP コンソールを使用して，GUI上で以下のPV/PVCを2セットを作
 
 - (1) ブラウザで，`https://<IP>:8443` に接続します。
 - (2) 「メニュー > プラットフォーム > ストレージ」を開きます。
+    ![icp-console_pv_pvc](images/02_icp-console_pv_pvc.png)
  
 - (3) mc-data用のPVを作成します。
     - 一般 > 名前: `mc-data`
@@ -171,13 +173,27 @@ ICP コンソールを使用して，GUI上で以下のPV/PVCを2セットを作
     - パラメーター > 値: `/microclimate/mc-data`
 
     ※必要に応じて以下図を参考にしてください
+    ![pv_mc-data_1](images/03_pv_mc-data_1.png)
+
+    ![pv_mc-data_2](images/04_pv_mc-data_2.png)
+
+    ![pv_mc-data_3](images/05_pv_mc-data_3.png)
+
+    ![pv_mc-data_4](images/06_pv_mc-data_4.png)
 
 - (4) mc-data 用の PVC を作成します。
 	- 名前: `mc-data`
 	- 名前空間: `microclimate`
 	- ストレージ要求: `8 Gi`
 	- アクセスモード: `何度でも読み取り/書き込み`
- 
+    
+    ※必要に応じて以下図を参考にしてください
+    ![pvc_mc-data_1](images/07_pvc_mc-data_1.png)
+
+    ![pvc_mc-data_2](images/08_pvc_mc-data_2.png)
+
+    ![pvc_mc-data_3](images/09_pvc_mc-data_3.png)
+
 次に，mc-jenkinsについても，ｍc-dataと同様に，PVとPVCを作成します。
 
 - (5) mc-jenkins 用の PV を作成します。
@@ -270,11 +286,13 @@ IPアドレス部分は，自身の環境のものと置き換えてください
 ※ログインが正常にできればOKです。以前の使用状況に合わせて初期状態の画面が異なる場合があります。
 
 図: ICP コンソール
+![icp-console_welcome](images/10_icp-console_welcome.png)
 
 図: Microclimate ポータル 
+![microclimate-console_welcome](images/11_microclimate-console_welcome.png)
 
 図: Jenkins サーバー画面 
-
+![microclimate-jenkins-console_welcome](images/12_microclimate-jenkins-console_welcome.png)
 
 ## 6. GitHubアカウントの準備
 3つの手順を実施します。
@@ -290,16 +308,24 @@ IPアドレス部分は，自身の環境のものと置き換えてください
 
 ### 6-2. GitHubアカウント作成後に，Personal Access Tokenを発行します
 ログイン後，「ユーザーアイコン > Setting > Developer setting > Generate new token」を選択します。
- 
+![github_personalaccesstoken_1](images/13_github_personalaccesstoken_1.png)
+
+![github_personalaccesstoken_2](images/14_github_personalaccesstoken_2.png)
+
+![github_personalaccesstoken_3](images/15_github_personalaccesstoken_3.png)
+
 Token descriptionにトークンの用途がわかるように任意の名前を指定します。
- 
+![github_personalaccesstoken_4](images/16_github_personalaccesstoken_4.png)
+
 トークンを使用して操作可能にするスコープに対してチェックを入れます。
 
 ※今回は，以下図のように指定してください。
 - repo 
 - admin: repo_hook
 - delete_repo
- 
+
+![github_personalaccesstoken_5](images/17_github_personalaccesstoken_5.png)
+
 上図の「Generate token」を選択します。
 
 次の画面で，Personal Access Token の文字列が表示されますので，メモ帳などにコピーアンドペーストしておいてください。
@@ -307,9 +333,11 @@ Token descriptionにトークンの用途がわかるように任意の名前を
 ※注意:
 
 一度きりしか表示されないため，忘れてしまった場合は再度作成することになります
- 
+![github_personalaccesstoken_6](images/18_github_personalaccesstoken_6.png)
+
 ### 6-3. GitHub.comのトップページなどの「New repository」から新規にリポジトリを作成します
- 
+ ![github_create_repository_1](images/19_github_create_repository_1.png)
+
 任意の名前を「Repository name」に入力し，他はデフォルトの状態のまま，「Create repository」を選択します。
 
 ※注意:
@@ -319,5 +347,7 @@ Token descriptionにトークンの用途がわかるように任意の名前を
 ※参考:
 
 本ドキュメント内では，「cnhandsonapp」という名前のリポジトリを作成し，後に作成するマイクロサービスも同様の名前で作成しています。
+![github_create_repository_2](images/20_github_create_repository_2.png)
+
  
 以上で，開発およびCI/CDツールである Microclimateの構築と，GitHubアカウントの準備が整いました。
