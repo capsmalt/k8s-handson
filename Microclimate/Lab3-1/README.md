@@ -162,6 +162,7 @@ ICP コンソールを使用して，GUI上で以下のPV/PVCを2セットを作
 
 - (1) ブラウザで，`https://<IP>:8443` に接続します。
 - (2) 「メニュー > プラットフォーム > ストレージ」を開きます。
+
     ![icp-console_pv_pvc](images/02_icp-console_pv_pvc.png)
  
 - (3) mc-data用のPVを作成します。
@@ -188,6 +189,7 @@ ICP コンソールを使用して，GUI上で以下のPV/PVCを2セットを作
 	- アクセスモード: `何度でも読み取り/書き込み`
     
     ※必要に応じて以下図を参考にしてください
+    
     ![pvc_mc-data_1](images/07_pvc_mc-data_1.png)
 
     ![pvc_mc-data_2](images/08_pvc_mc-data_2.png)
